@@ -1,26 +1,21 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
+from .views import *
+### function based
+# urlpatterns = [
+#     path('',todo_list,name='todo_list' ),
+#     path('add/',todo_add,name='todo_add' ),
+#     path('update/<int:pk>',todo_update,name='todo_update' ),
+#     path('delete/<int:pk>',todo_delete,name='todo_delete' ),
+# ]
 
-from .views import (
-    todo_list_create,
-    todo_home,
-    todo_detail,
-    Todos,
-    TodoDetail,
-    TodoMVS
-)
-
-router = routers.DefaultRouter()
-# todo/ todo/path  todo/<int:pk>  todo/<int:pk>/path
-router.register('todo', TodoMVS)
-
+### class based
 urlpatterns = [
-    path('', todo_home),
-    # path('list-create/', todo_list_create),
-    # path('detail/<int:id>', todo_detail),
-    path('list-create/', Todos.as_view()),
-    path('detail/<int:pk>', TodoDetail.as_view()),
-    path('', include(router.urls))
-]
+    path('',TodoListView.as_view(),name='todo_list' ),
+    path('add/',TodoCreateView.as_view(),name='todo_add' ),
+    path('update/<int:pk>',TodoUpdateView.as_view(),name='todo_update' ),
+    path('delete/<int:pk>',TodoDeleteView.as_view(),name='todo_delete' ),
+    path('detail/<int:pk>', TodoDeleteView.as_view(), name="todo_detail"),
 
-# urlpatterns += router.urls
+    
+
+]
